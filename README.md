@@ -1,4 +1,6 @@
-# omarchy-hyprland-titlebars
+# fk-omarchy-hyprland-titlebars
+
+> Forked from omacom/omarchy-hyprland-titlebars (MIT). See `SIGMAOS_FORK.md`.
 
 A native Hyprland plugin that gives Omarchy's floating workspace mode its window titlebars. It draws theme-neutral titlebars on floating windows; dragging one moves the window, and a maximized window dragged by its titlebar comes back to its floating size under the pointer.
 
