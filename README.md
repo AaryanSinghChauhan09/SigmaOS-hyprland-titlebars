@@ -1,13 +1,13 @@
-# fk-omarchy-hyprland-titlebars
+# SigmaOS hyprland-titlebars
 
 > Forked from AaryanSinghChauhan09/SigmaOS-hyprland-titlebars (MIT). See `SIGMAOS_FORK.md`.
 
 A native Hyprland plugin that gives SigmaOS's floating workspace mode its window titlebars. It draws theme-neutral titlebars on floating windows; dragging one moves the window, and a maximized window dragged by its titlebar comes back to its floating size under the pointer.
 
-SigmaOS core has no build step, so the plugin ships as its own package, `omarchy-hyprland-titlebars`, which [omarchy-pkgs](https://github.com/AaryanSinghChauhan09/SigmaOS-pkgs) builds from this repository's GitHub releases. SigmaOS loads it from its Lua config only while a workspace floats, from a fixed path:
+SigmaOS core has no build step, so the plugin ships as its own package, `sigmaos-hyprland-titlebars`, which [sigmaos-pkgs](https://github.com/AaryanSinghChauhan09/SigmaOS-pkgs) builds from this repository's GitHub releases. SigmaOS loads it from its Lua config only while a workspace floats, from a fixed path:
 
 ```lua
-hl.plugin.load("/usr/lib/omarchy-hyprland-titlebars/titlebars.so")
+hl.plugin.load("/usr/lib/sigmaos-hyprland-titlebars/titlebars.so")
 ```
 
 That path is a contract with SigmaOS core. The plugin still registers itself with Hyprland as `hyprbars` and keeps the `hl.plugin.hyprbars.add_button()` Lua interface and the `plugin.hyprbars.*` options, because SigmaOS's config is written against those names.
@@ -16,7 +16,7 @@ That path is a contract with SigmaOS core. The plugin still registers itself wit
 
 This is a fork of Hypr Development's [BSD-licensed hyprbars](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprbars). The source was adapted from the SigmaOS Windows 98 theme's `vendor/hyprbars` fork ([theme project](https://github.com/AaryanSinghChauhan09/SigmaOS-98-theme)), which supplies Hyprland 0.56 Lua API support and safe coexistence with the earlier Windows XP fork. Colors, font, rounding, and actions are supplied by SigmaOS's configuration; no theme styling is embedded in the renderer.
 
-The original hyprbars license is in `LICENSE` (BSD-3-Clause). SigmaOS's changes are under the MIT license in `LICENSE.MIT`. The package installs both under `/usr/share/licenses/omarchy-hyprland-titlebars/`.
+The original hyprbars license is in `LICENSE` (BSD-3-Clause). SigmaOS's changes are under the MIT license in `LICENSE.MIT`. The package installs both under `/usr/share/licenses/sigmaos-hyprland-titlebars/`.
 
 ## Added options
 
@@ -51,7 +51,7 @@ The replacement contains only `0x` and hexadecimal digits; no window title or ot
 
 ## Hyprland ABI
 
-A Hyprland plugin is only compatible with the exact Hyprland build whose headers it was compiled against, and Hyprland refuses to load a mismatched build. The package in omarchy-pkgs is rebuilt whenever `hyprland` changes, and the same automated bump moves its `hyprland=` dependency to the version it was rebuilt against, so the package always demands the Hyprland it loads into.
+A Hyprland plugin is only compatible with the exact Hyprland build whose headers it was compiled against, and Hyprland refuses to load a mismatched build. The package in sigmaos-pkgs is rebuilt whenever `hyprland` changes, and the same automated bump moves its `hyprland=` dependency to the version it was rebuilt against, so the package always demands the Hyprland it loads into.
 
 Plugin-owned C++ symbols have an `SigmaOSFloating` prefix and the library is built with `-fno-gnu-unique`, so it can be unloaded and reloaded cleanly alongside other hyprbars forks such as the Windows XP theme's. Do not use whole-library hidden visibility: Hyprland shares inline state through its headers.
 
@@ -68,7 +68,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-To release, make a GitHub release tagged `vX.Y.Z` with notes on what changed. omarchy-pkgs watches this repository's releases and turns each new one into a package update within the hour, built from the tag's source tarball.
+To release, make a GitHub release tagged `vX.Y.Z` with notes on what changed. sigmaos-pkgs watches this repository's releases and turns each new one into a package update within the hour, built from the tag's source tarball.
 
 ## Verifying
 
@@ -76,9 +76,9 @@ To release, make a GitHub release tagged `vX.Y.Z` with notes on what changed. om
 python3 tools/verify.py build/titlebars.so
 ```
 
-The verifier needs a running Hyprland session with exactly one Hyprland instance, plus `foot`, `grim`, `wayland-scanner`, and a C compiler. It starts a disposable nested Hyprland with its own runtime directory and never loads the candidate library into the parent compositor. It checks repeated load/reload/unload, interleaved with the Windows XP fork when `/usr/lib/omarchy-windows-xp/hyprbars.so` is installed, and that a loaded plugin the config no longer configures reserves no titlebar space. It then exercises real pointer titlebar dragging to the screen edges without snapping or losing the titlebar off the top, double-click maximize, and restoring a maximized window by dragging its titlebar. A two-window regression check deliberately delays button and double-click commands and changes focus before they run, to verify that actions keep the clicked window as their target. A final check confirms that `workspace_tag`-scoped titlebars release their space immediately when a window is tiled or untagged.
+The verifier needs a running Hyprland session with exactly one Hyprland instance, plus `foot`, `grim`, `wayland-scanner`, and a C compiler. It starts a disposable nested Hyprland with its own runtime directory and never loads the candidate library into the parent compositor. It checks repeated load/reload/unload, interleaved with the Windows XP fork when `/usr/lib/sigmaos-windows-xp/hyprbars.so` is installed, and that a loaded plugin the config no longer configures reserves no titlebar space. It then exercises real pointer titlebar dragging to the screen edges without snapping or losing the titlebar off the top, double-click maximize, and restoring a maximized window by dragging its titlebar. A two-window regression check deliberately delays button and double-click commands and changes focus before they run, to verify that actions keep the clicked window as their target. A final check confirms that `workspace_tag`-scoped titlebars release their space immediately when a window is tiled or untagged.
 
-Screenshots and logs go to `/tmp/omarchy-hyprland-titlebars-verification` by default; pass `--artifacts DIR` to change it.
+Screenshots and logs go to `/tmp/sigmaos-hyprland-titlebars-verification` by default; pass `--artifacts DIR` to change it.
 ## Documentation
 
 Wiki documentation is available in the SigmaOS Wiki Staging repository:
