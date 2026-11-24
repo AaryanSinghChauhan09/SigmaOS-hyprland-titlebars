@@ -1,22 +1,22 @@
 # fk-omarchy-hyprland-titlebars
 
-> Forked from omacom/omarchy-hyprland-titlebars (MIT). See `SIGMAOS_FORK.md`.
+> Forked from AaryanSinghChauhan09/SigmaOS-hyprland-titlebars (MIT). See `SIGMAOS_FORK.md`.
 
-A native Hyprland plugin that gives Omarchy's floating workspace mode its window titlebars. It draws theme-neutral titlebars on floating windows; dragging one moves the window, and a maximized window dragged by its titlebar comes back to its floating size under the pointer.
+A native Hyprland plugin that gives SigmaOS's floating workspace mode its window titlebars. It draws theme-neutral titlebars on floating windows; dragging one moves the window, and a maximized window dragged by its titlebar comes back to its floating size under the pointer.
 
-Omarchy core has no build step, so the plugin ships as its own package, `omarchy-hyprland-titlebars`, which [omarchy-pkgs](https://github.com/omacom/omarchy-pkgs) builds from this repository's GitHub releases. Omarchy loads it from its Lua config only while a workspace floats, from a fixed path:
+SigmaOS core has no build step, so the plugin ships as its own package, `omarchy-hyprland-titlebars`, which [omarchy-pkgs](https://github.com/AaryanSinghChauhan09/SigmaOS-pkgs) builds from this repository's GitHub releases. SigmaOS loads it from its Lua config only while a workspace floats, from a fixed path:
 
 ```lua
 hl.plugin.load("/usr/lib/omarchy-hyprland-titlebars/titlebars.so")
 ```
 
-That path is a contract with Omarchy core. The plugin still registers itself with Hyprland as `hyprbars` and keeps the `hl.plugin.hyprbars.add_button()` Lua interface and the `plugin.hyprbars.*` options, because Omarchy's config is written against those names.
+That path is a contract with SigmaOS core. The plugin still registers itself with Hyprland as `hyprbars` and keeps the `hl.plugin.hyprbars.add_button()` Lua interface and the `plugin.hyprbars.*` options, because SigmaOS's config is written against those names.
 
 ## Origin and license
 
-This is a fork of Hypr Development's [BSD-licensed hyprbars](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprbars). The source was adapted from the Omarchy Windows 98 theme's `vendor/hyprbars` fork ([theme project](https://github.com/omacom/omarchy-98-theme)), which supplies Hyprland 0.56 Lua API support and safe coexistence with the earlier Windows XP fork. Colors, font, rounding, and actions are supplied by Omarchy's configuration; no theme styling is embedded in the renderer.
+This is a fork of Hypr Development's [BSD-licensed hyprbars](https://github.com/hyprwm/hyprland-plugins/tree/main/hyprbars). The source was adapted from the SigmaOS Windows 98 theme's `vendor/hyprbars` fork ([theme project](https://github.com/AaryanSinghChauhan09/SigmaOS-98-theme)), which supplies Hyprland 0.56 Lua API support and safe coexistence with the earlier Windows XP fork. Colors, font, rounding, and actions are supplied by SigmaOS's configuration; no theme styling is embedded in the renderer.
 
-The original hyprbars license is in `LICENSE` (BSD-3-Clause). Omarchy's changes are under the MIT license in `LICENSE.MIT`. The package installs both under `/usr/share/licenses/omarchy-hyprland-titlebars/`.
+The original hyprbars license is in `LICENSE` (BSD-3-Clause). SigmaOS's changes are under the MIT license in `LICENSE.MIT`. The package installs both under `/usr/share/licenses/omarchy-hyprland-titlebars/`.
 
 ## Added options
 
@@ -53,7 +53,7 @@ The replacement contains only `0x` and hexadecimal digits; no window title or ot
 
 A Hyprland plugin is only compatible with the exact Hyprland build whose headers it was compiled against, and Hyprland refuses to load a mismatched build. The package in omarchy-pkgs is rebuilt whenever `hyprland` changes, and the same automated bump moves its `hyprland=` dependency to the version it was rebuilt against, so the package always demands the Hyprland it loads into.
 
-Plugin-owned C++ symbols have an `OmarchyFloating` prefix and the library is built with `-fno-gnu-unique`, so it can be unloaded and reloaded cleanly alongside other hyprbars forks such as the Windows XP theme's. Do not use whole-library hidden visibility: Hyprland shares inline state through its headers.
+Plugin-owned C++ symbols have an `SigmaOSFloating` prefix and the library is built with `-fno-gnu-unique`, so it can be unloaded and reloaded cleanly alongside other hyprbars forks such as the Windows XP theme's. Do not use whole-library hidden visibility: Hyprland shares inline state through its headers.
 
 ## Layout
 
